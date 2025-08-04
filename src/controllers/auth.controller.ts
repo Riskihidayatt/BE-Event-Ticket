@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import * as Yup from "yup";
+import UserModel from "../models/user.model";
 
 type Tregister = {
     fullName: string;
@@ -36,13 +37,17 @@ export default {
             confirmPassword,
         });
 
+        const result = await UserModel.create({
+            fullName,
+            email,
+            userName,
+            password,
+            
+        });
+
         res.status(200).json({
             message : "succes Registration",
-            data : {
-                fullName,
-                userName,
-                email,
-            },
+            data : result,
         
         })
             
